@@ -1,0 +1,411 @@
+#Ridwan Mukhtar's Coursework, rm109, H00247135, Python 3.6 (32-bit) was used
+#Question 1
+def cadd(c1,c2):
+#seperate the coordinate value in c1,c2 so i can add them accordingly 
+ r1,i1 = c1
+ r2, i2 = c2
+#add the two real numbers together and the two imaginary numbers together and return them in a coordinate function representng (real,imaginary)
+ return ((r1+r2),(i1+i2))
+
+#test
+#should return (10,15) as 5+5 gives 10 (the real part) and 10+5 gives 15 (the imaginary part)
+cadd((5,10),(5,5)) 
+
+#seperate the coordinate value in c1,c2 so i can multiply them accordingly
+def cmult(c1,c2): 
+ r1,i1 = c1
+ r2, i2 = c2
+ return ((r1*r2),(i1*i2))
+
+#test
+cmult((5,10),(5,5))
+#should return (25,50) as 5*5 gives 25 (the real part) and 10*5 gives 50 (the imaginary part)
+
+
+def tocomplex(r1,i1):
+#simply turns the coordinate function to a complex number
+ value= complex(r1,i1) 
+ return (value)
+
+#test
+tocomplex(5,0)
+#should return (5+0j)
+
+def fromcomplex(value):
+#simply takes the real and imaginary number and makes a coordinate function
+ return (round(value.real),round(value.imag))
+
+#test
+fromcomplex(5+20j)
+#should return (5,20)
+
+
+#Question 2a
+def seqaddi(x=[],y=[]):
+#simply just adds two values together and repeats the process till we reach the end of x
+ i = 0
+ finalArray = []
+#i is our index
+ while i<len(x):
+#add the two values from x and y and put them into finalArray
+  finalArray.append(x[i]+y[i])
+  i = i + 1
+ return finalArray
+
+#test
+seqaddi([1,2,3,4,5,6],[2,3,4,5,6,7])
+#should return [3,5,7,9,11,13]
+
+#simply just multiply two values together and repeats the process till we reach the end of x
+def seqmulti(x=[],y=[]):
+ i = 0
+ finalArray = []
+#i is our index
+ while i<len(x):
+#multiply the two values from x and y and put them into finalArray
+  finalArray.append(x[i]*y[i])
+  i = i + 1
+ return finalArray
+
+#test
+seqmulti([1,2,3,4,5,6],[2,3,4,5,6,7])
+#should return [2,6,12,20,30,42]
+
+
+#Question 2b
+#checks if the length of x is greater than 0 (we assume the arrays are the same) and if it returns true, we add/multiply the two first two values and recursively put all the values except the first value back into seqadd and seqmult
+def seqaddr(x=[],y=[]):
+ if len(x) > 0:
+#if the length of x is greater than 0, we add the two values and recursively put in the values back into seqaddr (except the first values)
+  return [x[0] + y[0]] + seqaddr(x[1:],y[1:])
+ else:
+#this is the exit case
+  return [] 
+
+#test
+seqaddr([1,2,3,4,5,6],[2,3,4,5,6,7]) 
+#should return [3,5,7,9,11,13]
+
+def seqmultr(x=[],y=[]):
+ if len(x) > 0:
+#if the length of x is greater than 0, we multiply the two values and recursively put in the values back into seqmultr (except the first values)
+  return [x[0] * y[0]] + seqmultr(x[1:],y[1:])
+ else:
+  return []  
+
+#test
+seqmultr([1,2,3,4,5,6],[2,3,4,5,6,7])
+#should return [2,6,12,20,30,42]
+
+
+#Question 2c
+def seqadd(x=[],y=[]):
+#simply add the two values until i > the length of x
+ finalArray = [x[i] + y[i] for i in range(len(x))]
+ return finalArray
+
+#test
+seqadd([1,2,3,4,5,6],[2,3,4,5,6,7])
+#should return [3,5,7,9,11,13]
+
+def seqmult(x=[],y=[]):
+#simply times the two values until i > the length of x
+ finalArray = [x[i] * y[i] for i in range(len(x))]
+ return finalArray
+
+#test
+seqmult([1,2,3,4,5,6],[2,3,4,5,6,7])
+#should return [2,6,12,20,30,42]
+  
+
+#Question 3
+#ismatrix
+def ismatrix(matrix):
+#checks the length of the first array in the matrix
+ checker = len(matrix [0])
+#for each row in the matrix
+ for row in matrix:
+#checks if the length isn't equal to the checker, if they aren't equal then the inputted value isn't a matrix as all of the arrays must be of the same length
+  if len(row) != checker:
+   return False
+ return True
+
+#test
+#should return True
+ismatrix([[1,2,3,4,5],[2,3,4,5,6]])
+
+#should return False
+ismatrix([[1,2,3,4],[2,3,4,5],[4,5,6,7],[4,5,6,7],[4,5,6,7],[1]])
+
+
+#matrixshape
+def matrixshape(matrix):
+#row is simply how many arrays are in the matrix
+ row = len(matrix)
+#column is simply how many values are stored in 1 array
+ column = len(matrix[0])
+ return(row,column)
+
+#test
+matrixshape([[1,2,3,4,5,6],[2,3,4,5,6,7],[1,2,3,4,5,6]])
+#should return (3,6)
+ 
+#matrixadd
+def matrixadd(x,y):
+ finalMatrix = []
+#gets the overall length value of x
+ for i in range(len(x)):
+  row = []
+#gets the row values
+  for j in range(len(x[0])):
+#creates a new array which will add the two values together
+   row.append(x[i][j]+y[i][j])
+#add the new array to finalMatrix
+  finalMatrix.append(row)
+ return finalMatrix
+
+#test
+matrixadd([[1,2,3,4,5,6,7],[1,2,3,4,5,6,7]],[[9,9,9,9,9,9,9],[1,1,1,1,1,1,1]])
+#should return [[10, 11, 12, 13, 14, 15, 16], [2, 3, 4, 5, 6, 7, 8]]
+
+
+#matrixmult
+def transposer(x):
+ output = []
+#for every index in x
+ for i in range(len(x)):
+  change = []
+#for every index in the x[i] array
+  for j in range(len(x[i])):
+#change the array from a list of rows to a list of columns
+   change.append(x[j][i])
+  output.append(change)
+ return output
+
+transposer([[1,2,5],[2,3,6],[2,3,4]])
+#should return [[1,2,2],[2,3,4],[5,6,4]]
+
+
+def seqmatrixmult(x=[], y=[]):
+#just like seqmult
+ if len(x) == 0 or len(y) == 0:
+  return []
+ else: 
+  return [x[i]*y[i] for i in range(len(x))]
+
+
+def adder(x):
+ value = 0;
+ output = [];
+ if len(x) == 0:
+  return []
+ else: 
+#gets the arrays in x
+  for i in range(len(x)):
+#goes into the arrays in x
+   for j in range(len(x[i])):
+#totals up the array
+    value += x[i][j]
+   output.append(value)
+   value = 0
+ return output
+
+
+def matrixmult(x, y):
+ output = []
+#transposes a matrix
+ y = transposer(y)
+ for i in range(len(x)):
+  for j in range(len(y)):
+#times the two values together
+   output.append(seqmatrixmult(x[i],y[j]))
+ output = adder(output)
+ return output
+
+#test
+matrixmult([[1,2]],[[2,4],[3,4]])
+#should return [8,12]
+
+#Question 4
+#Mutable vs immutable types
+#Python uses both mutable and immutable types. Mutable types use methods to change the given vaue whereas immutable types do not have this. An example of mutable types are lists and examples of immutable types are strings and tuples. With lists, you can add/append whereas in a tuple, you cannot do this.
+
+#int v float types
+#int types are also known as integers and are either positive or negative. They do not contain decimal points.
+#float types represent real numbers (numbers which contain a decimal point). float types can also be written in scientific notation. 333 is an example of an integer and -333 is also an example of an integer. 16.50 is an example of a float and -32.5 is also an example of a float type.
+
+#Assignment = vs equality == vs identity is.
+#we can assign values to variables, such as x = 2, an integer is assigned to x, equality is two "=" signs and this is the comparison operator. 3 == 4 will return false and 3==3 will return true. The 'is' operator will check if two things are the same, e.g 5 is 5 will return true, 5 is 6 will return false. objects are assigned identities e.g id(10) 1519769536 which identifies the objects.
+
+#list(range(5**5**5)) causes an overflow error due to it being too large for range(). list(range(2**3)) will output all the values up till 2*3 (so everything until 8)
+
+#slice is used to get parts of tuples,lists,strings or range. slice had 3 variables which can be inserted into it, the first one being the starting position, the second being the end position to stop the slicing and what you want to increment by.
+#list(range(10**10)[10:10]) gives [] as an output. I believe it does this because the range isn't a 10.  When list(range(10**10))[10:10] is run, Python int too large to convert to C ssize_t error is recieved. 
+
+#Question 5
+def encdat(x):
+ if type(x) == type(5j+5):
+#because the output gives a bracketted function, i remove these brackets and then return the value (the value is aready a string so no need to return str(x)
+  x = str(x)
+  x = x.strip(“(“)
+  x = x.strip(“)”)
+  return x
+ else:
+#any other value can simple just be returned with str() attached.
+  return str(x)
+
+
+#test
+encdat(5)
+#should return '5'
+
+encdat("hi")
+#should return 'hi'
+
+encdat(complex(5+5j))
+#should return '5+5j'
+
+encdat(5.0)
+#should return '5.0'
+
+
+#Question 6
+#fenc
+def fenc(x=0):
+#if x is 0, we return [], otherwise, we use the calculation given in the PDF file and return the result, we use n-1 as the exit condition because this will allow us to exit the recursion
+ if x == 0:
+  return []
+ else:
+  return [fenc(x-1),[fenc(x-1)]]
+
+#test
+fenc(3)
+#should return [[[[], [[]]], [[[], [[]]]]], [[[[], [[]]], [[[], [[]]]]]]]
+
+#fdec 
+def fdec(x):
+#when doing fdec, i noticed that the brackets at the start can be used to decode the encoded value. if there are "[[[[" at the start, the value should be 3, so i check how many ['s appear and minus 1 from the total count
+#i split the array
+ single = list(str(x))
+ i = 0
+#checks each value until it reaches the first ] value, it will then exit this while loop
+ while (single[i] ==“[“):
+  i = i +1
+#i return i-1 because when decoding, there are always one extra ['s, so to get the right decoding value, you minus 1
+ return i-1
+
+#test
+fdec([[[[], [[]]], [[[], [[]]]]], [[[[], [[]]], [[[], [[]]]]]]])
+#should return 3
+
+#Question 7
+def cycle(anyList):
+ values = []
+#for every element in anylist, we append the element to value
+ for element in anyList:
+  values.append(element)
+#for every element in value, we yield the element for iteration
+ while values:
+  for element in values:
+   yield element
+
+def cycleoflife():
+#creates the list being used and calls cycle to create an endless next(x) call
+ lst = [“eat”,”sleep”,”code”]
+ update = cycle(lst)
+ return update
+
+#test
+x = cycleoflife()
+next(x)
+#'eat'
+next(x)
+#'sleep'
+next(x)
+#'code'
+next(x)
+#'eat'
+next(x)
+#'sleep'
+next(x)
+#'code'
+
+#Question 8
+def gendat(x):
+ lst = []
+#if x is just number, simply just add it into the lst
+ if type(x) == type(5):
+  lst.append(x)
+ else:
+#gets every value in x
+  for contents in x:
+#if the value is a number, we add it to lst
+   if type(contents) == type(5):
+    lst.append(contents)
+   elif type(contents) == type([]):
+#if the value is an array, we want to go into the array
+    for microContents in contents:
+#check if the value inside that array is an int value and add it to list
+     if type(microContents) == type(5):
+      lst.append(microContents)
+     else:
+#otherwise we have a list inside a list so we recursively put the microContents into x
+      lst += gendat(microContents)
+  return lst
+
+
+#tests for question 8
+gendat([5,[5,[]],[],[4,5,6,7,[1,2,3,[1,2,3,[1,2,3]]],8],[5]])
+#should return [5, 5, 4, 5, 6, 7, 1, 2, 3, 1, 2, 3, 1, 2, 3, 8, 5]
+
+gendat([])
+#should return []
+
+gendat([5,[5,[]],[],[5]])
+#should return [5,5,5]
+
+
+#Question 9
+#MY ATTEMPT ON Q9
+def cycle(n):
+#i create
+#i create two arrays, one that stores the prime numbers and the other which will store the non-prime numbers
+ values = []
+ prime = []
+#starts at 2, ends at n-1
+ for i in range(2,n-1):
+#checks if i is not in values (if so, it's prime!)
+  if i not in values:
+   prime.append(i)
+#you want to keep incrementing i until it reaches n+1, i*i because we want to find i to the power of 2
+   for j in range (i*i, n+1, i):
+#put the non-prime numbers into value
+    values.append(j)
+#"yields" the value so i can iterate
+ while prime:
+  for element in prime:
+   yield element
+
+#change lst to any value (the larger the value, the longer you will need to wait for the whole thing to process), unsure as to how to make it an infinite value (unless you just want a extremely large value)
+def eratosthenes():
+ lst = 1000
+ update = cycle(lst)
+ return update
+
+
+#test
+x = eratosthenes()
+next(x)
+#2
+next(x)
+#3
+next(x)
+#5
+next(x)
+#7
+next(x)
+#11
+next(x)
+#13
+next(x)
+#17
